@@ -4,6 +4,7 @@ public abstract class User {
 	protected String name;
 	protected String email;
 	protected String phonenumber;
+	protected IOOperation[] operations;
 	
 	public User() {}
 	
@@ -29,5 +30,5 @@ public abstract class User {
 	public String  getPhoneNumber() {
 		return phonenumber;
 	}
-	abstract public void menu();
+	abstract public void menu(Database database,User user);
 }

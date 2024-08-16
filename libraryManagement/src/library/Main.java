@@ -9,7 +9,7 @@ public class Main {
 		System.out.println("Welcome to Library Management System!");
 		
 		int num;
-		do {
+		//do {
 
 			System.out.println(
 					"0. Exit\n"
@@ -22,7 +22,7 @@ public class Main {
 				case 1: login();
 				case 2: newUser(); 
 			}
-		}while(num != 0);
+	//	}while(num != 0);
 	}
 	
 	private static void login() {
@@ -33,7 +33,7 @@ public class Main {
 		int n = database.login(phonenumber, email);
 		if( n != -1) {
 			User user = database.getUser(n); 
-			user.menu();
+			user.menu(database,user);
 		} else {
 
 			System.out.println("User dosen't exist!");
@@ -57,9 +57,9 @@ public class Main {
 		}
 
 		database.AddUser(user);
-		user.menu();
+		user.menu(database,user);
 		
-		System.out.println("User Created Successfully!");
+		//System.out.println("User Created Successfully!");
 	} 
 
 }
