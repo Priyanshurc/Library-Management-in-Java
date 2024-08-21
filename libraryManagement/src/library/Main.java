@@ -19,8 +19,8 @@ public class Main {
 			num = inp.nextInt();
 			
 			switch(num) {
-				case 1: login();
-				case 2: newUser(); 
+				case 1: login(); break;
+				case 2: newUser(); break;
 			}
 	//	}while(num != 0);
 	}

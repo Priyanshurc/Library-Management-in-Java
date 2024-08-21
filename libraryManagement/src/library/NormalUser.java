@@ -53,4 +53,9 @@ public class NormalUser extends User  {
 		this.operations[n-1].oper(database,user);
 		s.close();
 	}
+
+	public String toString() {
+
+		return name + "<N/>" + email + "<N/>" + phonenumber + "<N/>" + "Normal";
+	}
 }

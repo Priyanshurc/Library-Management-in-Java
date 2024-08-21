@@ -25,12 +25,12 @@ public class Book {
 	
 	public String toString(){
 		String text = "Book Name: "+name+
-				"Book Author: "+ author+
-				"Book Publisher: "+ publisher+
-				"Book Collection Address: "+address+
-				"Qty:" +String.valueOf(qty)+
-				"Price: " + String.valueOf(price)+
-				"BorrowingCopies" + String.valueOf(brwcopies);
+				" Book Author: "+ author+
+				" Book Publisher: "+ publisher+
+				" Book Collection Address: "+address+
+				" Qty:" +String.valueOf(qty)+
+				" Price: " + String.valueOf(price)+
+				" BorrowingCopies" + String.valueOf(brwcopies);
 		return text;
 		
 	}
@@ -98,5 +98,13 @@ public class Book {
 	public void setBrwcopies(int brwcopies) {
 		this.brwcopies = brwcopies;
 	}
+	
+
+	public String toString2(){
+		String text =name+"<N/>"+ author+"<N/>"+ publisher+"<N/>"+address+"<N/>" +String.valueOf(qty)+"<N/>" + String.valueOf(price)+"<N/>" + String.valueOf(brwcopies);
+		return text;
+		
+	}
+	
 	
 }
