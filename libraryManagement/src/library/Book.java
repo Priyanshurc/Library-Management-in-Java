@@ -12,28 +12,35 @@ public class Book {
 	
 	public Book() {};
 	
-	public Book(String name,String author, String publisher, String address,
+	public Book(String name,String author, String publisher, String address, String status,
 			int qty, double price, int brwcopies){
 		this.name = name;
 		this.author = author;
 		this.publisher = publisher;
 		this.address = address;
+		this.status = status;
 		this.qty = qty;
 		this.price = price;
 		this.brwcopies = brwcopies;
 	}
-	
-	public String toString(){
-		String text = "Book Name: "+name+
-				" Book Author: "+ author+
-				" Book Publisher: "+ publisher+
-				" Book Collection Address: "+address+
-				" Qty:" +String.valueOf(qty)+
-				" Price: " + String.valueOf(price)+
-				" BorrowingCopies" + String.valueOf(brwcopies);
-		return text;
-		
+	@Override
+	public String toString() {
+	    return name + ";" + author + ";" + publisher + ";" + address + ";" + status + ";" + qty + ";" + price + ";" + brwcopies;
 	}
+
+//	@Override
+//	public String toString() {
+//	    String text = " Book Name: " + name + "\n" +
+//	                  " Book Author: " + author + "\n" +
+//	                  " Book Publisher: " + publisher + "\n" +
+//	                  " Book Collection Address: " + address + "\n" +
+//	                  " Book status: " + status + "\n" +
+//	                  " Qty: " + String.valueOf(qty) + "\n" +
+//	                  " Price: " + String.valueOf(price) + "\n" +
+//	                  " Borrowing Copies: " + String.valueOf(brwcopies);
+//	    return text;
+//	}
+
 	
 	public String getName() {
 		return name;
@@ -101,10 +108,11 @@ public class Book {
 	
 
 	public String toString2(){
-		String text =name+"<N/>"+ author+"<N/>"+ publisher+"<N/>"+address+"<N/>" +String.valueOf(qty)+"<N/>" + String.valueOf(price)+"<N/>" + String.valueOf(brwcopies);
+		String text =name+"<N/>"+ author+"<N/>"+ publisher+"<N/>"+address+"<N/>"+ status +"<N/>"+String.valueOf(qty)+"<N/>" + String.valueOf(price)+"<N/>" + String.valueOf(brwcopies);
 		return text;
 		
 	}
+
 	
 	
 }

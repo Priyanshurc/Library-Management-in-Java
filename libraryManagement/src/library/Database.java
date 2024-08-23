@@ -28,8 +28,8 @@ public class Database {
 			booksfile.createNewFile();
 			}catch(Exception e) {}
 		}
-		getUsers();
-		getBooks();
+		this.getUsers();
+		this.getBooks();
 
 	}
 	
@@ -94,7 +94,7 @@ public class Database {
 			text1 = text1 + user.toString() + "<NewUser/>\n";
 		}
 		try {
-			PrintWriter pw = new PrintWriter(usersfile);
+			PrintWriter pw = new PrintWriter(this.usersfile);
 			pw.print(text1);
 			pw.close();
 		}catch(Exception e) {
@@ -107,7 +107,7 @@ public class Database {
 			text1 = text1 + book.toString() + "<NewBook/>\n";
 		}
 		try {
-			PrintWriter pw = new PrintWriter(booksfile);
+			PrintWriter pw = new PrintWriter(this.booksfile);
 			pw.print(text1);
 			pw.close();
 		}catch(Exception e) {
@@ -117,43 +117,127 @@ public class Database {
 	
 
 	private void getBooks() {
-		String text1 = "";
-		try {
-			BufferedReader br1 = new BufferedReader(new FileReader(booksfile));
-			String s1;
-			while((s1 = br1.readLine())  != null) {
-				text1 = text1 +s1;
-			}
-			br1.close();
-		}catch (Exception e){
-			System.err.println(e.toString());
-		}
-		
-		if(!text1.matches("")|| !text1.isEmpty()) {
-			String[] a1 = text1.split("<NewBook/>");
-			for(String s:a1) {
-				Book book = parseBook(s);
-				books.add(book);
-				booknames.add(book.getName());
-				
-			}
-		}
-	}
-	
+	    String text1 = "";
+	    try {
+	        BufferedReader br1 = new BufferedReader(new FileReader(booksfile));
+	        String s1;
+	        while ((s1 = br1.readLine()) != null) {
+	            text1 += s1; // Accumulate lines
+	        }
+	        br1.close();
+	    } catch (Exception e) {
+	        System.err.println(e.toString());
+	    }
 
-	public Book parseBook(String s) {
-		String[] a = s.split("<N/>");
-		Book book = new Book();
-		book.setName(a[0]);
-		book.setAuthor(a[1]);
-		book.setPublisher(a[2]);
-		book.setAddress(a[3]);
-		book.setQty(Integer.parseInt(a[4]));
-		book.setPrice(Double.parseDouble(a[5]));
-		book.setBrwcopies(Integer.parseInt(a[6]));
-		return book;
+	    if (!text1.isEmpty()) {
+	        // Split by <NewBook/> and process each part
+	        String[] bookEntries = text1.split("<NewBook/>");
+	        for (String entry : bookEntries) {
+	            Book book = parseBook(entry.trim());
+	            if (book != null) {
+	                books.add(book);
+	                booknames.add(book.getName());
+	            }
+	        }
+	    }
 	}
+//	public Book parseBook(String s) {
+//	    
+//
+//	    try {
+//	    	 String[] lines = s.split("\n");
+//
+//		if (lines.length != 8) {
+//            System.err.println("Skipping malformed input: " + s);
+//            return null;
+//        }
+//
+//        // Extracting the values based on the labels
+//        String name = extractValue(lines[0], "Book Name: ");
+//        String author = extractValue(lines[1], "Book Author: ");
+//        String publisher = extractValue(lines[2], "Book Publisher: ");
+//        String address = extractValue(lines[3], "Book Collection Address: ");
+//        String status = extractValue(lines[4], "Book status: ");
+//        int qty = Integer.parseInt(extractValue(lines[5], "Qty: "));
+//        double price = Double.parseDouble(extractValue(lines[6], "Price: "));
+//        int brwcopies = Integer.parseInt(extractValue(lines[7], "Borrowing Copies: "));
+//
+//        // Creating the Book object with extracted values
+//        Book book = new Book();
+//        book.setName(name.trim());
+//        book.setAuthor(author.trim());
+//        book.setPublisher(publisher.trim());
+//        book.setAddress(address.trim());
+//        book.setStatus(status.trim());
+//        book.setQty(qty);
+//        book.setPrice(price);
+//        book.setBrwcopies(brwcopies);
+//
+//        return book;
+//	    } catch (NumberFormatException e) {
+//	        System.err.println("Skipping malformed input (NumberFormatException): " + s);
+//	        return null;
+//	    }
+//	}
+//
+//		private String extractValue(String line, String label) {
+//   		 return line.substring(line.indexOf(label) + label.length()).trim();
+//		}
+	
+	
+	public Book parseBook(String s) {
+	    try {
+	        // Split the string by semicolon (;) since that's the delimiter used in the file
+	        String[] fields = s.split(";");
+
+	        // Ensure there are exactly 8 fields
+	        if (fields.length != 8) {
+	            System.err.println("Skipping malformed input: " + s);
+	            return null;
+	        }
+
+	        // Create a Book object with extracted values
+	        Book book = new Book();
+	        book.setName(fields[0].trim());
+	        book.setAuthor(fields[1].trim());
+	        book.setPublisher(fields[2].trim());
+	        book.setAddress(fields[3].trim());
+	        book.setStatus(fields[4].trim());
+	        book.setQty(Integer.parseInt(fields[5].trim()));
+	        book.setPrice(Double.parseDouble(fields[6].trim()));
+	        book.setBrwcopies(Integer.parseInt(fields[7].trim()));
+
+	        return book;
+	    } catch (NumberFormatException e) {
+	        System.err.println("Skipping malformed input (NumberFormatException): " + s);
+	        return null;
+	    }
+	}
+
+
+
 	public ArrayList<Book> getAllBooks(){
 		return books;
 	}
+	public int getBook(String Bookname) {
+		int i =-1;
+		for(Book book: books) {
+			if(book.getName().matches(Bookname)) {
+				i = books.indexOf(book);
+			}
+		}
+		return i;
+	}
+
+	public Book getBook(int i) {
+		return books.get(i);
+	}
+	
+	public void deleteBook(int i) {
+		books.remove(i);
+		booknames.remove(i);
+		saveBooks();
+	}
+	
+
 }

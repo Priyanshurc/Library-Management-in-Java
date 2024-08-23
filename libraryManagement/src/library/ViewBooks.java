@@ -7,10 +7,12 @@ public class ViewBooks implements IOOperation{
 	@Override
 	public void oper(Database database,User user) {
 		ArrayList<Book> books = database.getAllBooks();
-		System.out.println("Name\t Author \t Publisher \tCollection Location Address \t Status \t Qty \t Price\t Borrowing Copies");
+		System.out.println("Name \t Author \tPublisher \tCollection Location Address \tStatus \tQty \tPrice \tBorrowing Copies");
 		for(Book b: books) {
-			System.out.println(b.getName()+ "\t" + b.getAuthor() + "\t" +b.getPublisher()+ "\t" + b.getAddress()  +"\t" + b.getQty() + "\t" +b.getPrice()+"\t" +b.getBrwcopies());
+			System.out.println(b.getName()+ " \t " + b.getAuthor() + "\t\t" +b.getPublisher()+ "\t\t" + b.getAddress() + "\t\t\t\t" + b.getStatus() +"\t" + b.getQty() + "\t" +b.getPrice()+"\t" +b.getBrwcopies());
 		}
+
+		user.menu(database,user);
 	}
 		
 }
